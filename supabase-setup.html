@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>Supabase SQL 配置 - 赌局簿</title>
+<style>
+body { font-family: -apple-system, 'Noto Sans SC', sans-serif; background: #0f0f1a; color: #f8fafc; max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+h1 { color: #a78bfa; }
+.card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin: 20px 0; }
+.step { display: flex; gap: 12px; margin: 16px 0; align-items: flex-start; }
+.num { background: #7c3aed; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+code { background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+pre { background: #1e1e2e; padding: 16px; border-radius: 12px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); }
+.btn { display: inline-block; background: linear-gradient(135deg, #7c3aed, #3b82f6); color: white; padding: 12px 24px; border-radius: 12px; text-decoration: none; }
+.success { color: #34d399; }
+</style></head>
+<body>
+<h1>🚀 配置 Supabase 实时同步</h1>
+<p>需要运行一段 SQL 来启用实时数据同步功能。</p>
+
+<div class="card">
+<h2>步骤 1</h2>
+<p>点击下方按钮，打开 Supabase SQL 编辑器：</p>
+<a class="btn" href="https://supabase.com/dashboard/project/bufylnzgwubahttxbsaw/sql/new" target="_blank">打开 Supabase SQL 编辑器</a>
+<p style="margin-top:12px; font-size:13px; color: #94a3b8;">如果未登录，请先登录你的 Supabase 账号</p>
+</div>
+
+<div class="card">
+<h2>步骤 2</h2>
+<p>复制以下 SQL 到编辑器中：</p>
+<pre id="sql">alter publication supabase_realtime add table if not exists bet_shares;
+alter table public.bet_shares replica identity full;</pre>
+<button class="btn" onclick="copySql()" style="margin-top:8px;">📋 复制 SQL</button>
+</div>
+
+<div class="card">
+<h2>步骤 3</h2>
+<p>按 <code>Ctrl + Enter</code> 或点击 "Run" 按钮运行 SQL。</p>
+<p class="success">✅ 完成后刷新游戏页面，同步功能即可工作！</p>
+</div>
+
+<script>
+function copySql() {
+  navigator.clipboard.writeText(document.getElementById('sql').textContent);
+  alert('SQL 已复制！');
+}
+</script>
+</body></html>
